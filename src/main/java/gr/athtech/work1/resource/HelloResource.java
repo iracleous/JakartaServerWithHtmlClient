@@ -9,7 +9,7 @@ import java.util.List;
 @Path("/products")
 public class HelloResource {
 
-    private static List<Product> products = new ArrayList<>();
+    private static final List<Product> products = new ArrayList<>();
 
     //CRUD
     //Post, Get, Put, Delete
