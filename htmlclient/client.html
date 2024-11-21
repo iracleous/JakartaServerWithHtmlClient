@@ -1,0 +1,110 @@
+<html>
+<body>
+
+<a href="http://localhost:8080/work1-1.0-SNAPSHOT/api/products/ping">Ping</a><br>
+
+
+<a href="http://localhost:8080/work1-1.0-SNAPSHOT/api/products">GETall</a><br>
+
+<a href="#" onclick="getById()">GetById</a>
+<input type="text" id="num" name="num" placeholder="id"><br>
+
+
+<a href="#" onclick="createProduct()">Post</a>
+<input type="text" id="num1" name="num1" placeholder="id">
+<input type="text" id="name" name="name" placeholder="name">
+<input type="text" id="price" name="price" placeholder="pric"><br>
+
+
+<a href="#" onclick="updateProduct()">Put</a>
+<input type="text" id="num2" name="num2" placeholder="id">
+<input type="text" id="name2" name="name2" placeholder="name">
+<input type="text" id="price2" name="price2" placeholder="pric"><br>
+
+
+
+<a href="#" onclick="deleteProduct()" >Delete</a>
+<input type="text" id="num3" name="num3" placeholder="id">
+<br>
+
+
+<script>
+
+    function getById(){
+        url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/" +
+            document.getElementById("num").value;
+        window.open(url, '_self');
+    }
+
+    function createProduct(){
+        url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/";
+        data = {
+            "id": document.getElementById("num1").value,
+            "name": document.getElementById("name").value,
+            "price": document.getElementById("price").value
+        };
+
+        jsonData= JSON.stringify(data);
+
+        fetch(url, { method: 'POST', body: jsonData,
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+            }
+        })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (body) {
+                alert(body);
+            });
+    }
+
+ function updateProduct(){
+     url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/"+ document.getElementById("num2").value;
+     data = {
+         "name": document.getElementById("name2").value,
+         "price": document.getElementById("price2").value
+     };
+
+     jsonData= JSON.stringify(data);
+
+     fetch(url, { method: 'PUT', body: jsonData,
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json',
+         }
+     })
+         .then(function (response) {
+             return response.text();
+         })
+         .then(function (body) {
+             alert(body);
+         });
+ }
+
+
+
+ function deleteProduct(){
+     url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/"+ document.getElementById("num3").value;
+     fetch(url, { method: 'DELETE',
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json',
+         }
+     })
+         .then(function (response) {
+             return response.text();
+         })
+         .then(function (body) {
+             alert(body);
+         });
+
+ }
+
+
+</script>
+
+
+</body>
+</html>
