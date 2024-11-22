@@ -44,20 +44,33 @@
 <hr>
 
 <script>
-    function getById(){
-        let url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/" +
-            document.getElementById("num").value;
-        window.open(url, '_self');
+ const urlBase = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/";
+
+  function getById(){
+        let url =  urlBase + document.getElementById("num").value;
+     //   window.open(url, '_self');
+        fetch(url, { method: 'GET',
+         headers: {
+          'Accept': 'application/json',
+          'Content-type': 'application/json',
+         }
+        })
+        .then(function (response) {
+         return response.text();
+        })
+        .then(function (body) {
+         alert(body);
+        })
+        .catch(reason => alert(reason));
     }
 
     function createProduct(){
-        let url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/";
+        let url = urlBase;
         let data = {
             "id": document.getElementById("num1").value,
             "name": document.getElementById("name").value,
             "price": document.getElementById("price").value
         };
-
         let jsonData= JSON.stringify(data);
 
         fetch(url, { method: 'POST', body: jsonData,
@@ -67,16 +80,16 @@
             }
         })
         .then(function (response) {
-            alert(response.id);
             return response.text();
         })
         .then(function (body) {
             alert(body);
-        });
+        })
+        .catch(reason => alert(reason));
     }
 
     function updateProduct(){
-         let url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/"+ document.getElementById("num2").value;
+         let url = urlBase + document.getElementById("num2").value;
          let data = {
              "name": document.getElementById("name2").value,
              "price": document.getElementById("price2").value
@@ -94,11 +107,11 @@
          })
          .then(function (body) {
              alert(body);
-         });
+         }) .catch(reason => alert(reason));
     }
 
     function deleteProduct(){
-         let url = "http://localhost:8080/work1-1.0-SNAPSHOT/api/products/"+ document.getElementById("num3").value;
+         let url = urlBase + document.getElementById("num3").value;
          fetch(url, { method: 'DELETE',
          headers: {
              'Accept': 'application/json',
@@ -110,9 +123,9 @@
          })
          .then(function (body) {
              alert(body);
-         });
+         })
+         .catch(reason => alert(reason));
     }
-
 </script>
 </body>
 </html>

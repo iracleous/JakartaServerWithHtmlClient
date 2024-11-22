@@ -1,6 +1,7 @@
 package gr.athtech.work1.resource;
 
 import gr.athtech.work1.model.Product;
+import gr.athtech.work1.repository.ProductRepository;
 import jakarta.ws.rs.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class HelloResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Product createProduct(Product product) {
+
+
+        ProductRepository p = new ProductRepository();
+        p.createProduct(product);
+
+
         products.add(product);
         return product;
     }
